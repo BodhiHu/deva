@@ -20,10 +20,12 @@ module.exports = function(grunt) {
 
       const { path, remote } = CONFIG.modules[key];
       console.log(`\n[Deva] Pull & Rebase ${key}\n`.underline.green);
-      if (sh.cd(`${path}`).code === 0) {
-        sh.exec(`git checkout master`);
-        sh.exec(`git pull ${remote} master --rebase`);
+      if (sh.exec(`bash ./scripts/Git-pull-rebase.sh ${path} ${remote}`).code != 0) {
+        console.log(`\n=> Error`.red);
+        return;
       }
+
+      console.log(`\n=> Success`.green);
 
     });
   });
