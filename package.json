@@ -4,7 +4,9 @@
   "version": "0.0.1",
   "public": true,
   "dependencies": {
+    "colors": "^1.2.3",
     "connect-livereload": "^0.4.0",
+    "debug": "^3.1.0",
     "grunt": "^0.4.5",
     "grunt-notify": "^0.4.5",
     "shelljs": "^0.8.1",
