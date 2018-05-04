@@ -18,16 +18,38 @@ module.exports = function(grunt) {
     const moduleKeys = _.keys(CONFIG.modules);
     moduleKeys && moduleKeys.forEach((key) => {
 
-      const { path, remote } = CONFIG.modules[key];
-      console.log(`\n[Deva] Pull & Rebase ${key}\n`.underline.green);
-      if (sh.exec(`bash ./scripts/Git-pull-rebase.sh ${path} ${remote}`).code != 0) {
-        console.log(`\n=> Error`.red);
-        return;
-      }
+      const { path, upstream } = CONFIG.modules[key];
 
-      console.log(`\n=> Success`.green);
+      bashTask(
+        `Pull & Rebase ${key}`,
+        `bash ./scripts/Git-pull-rebase.sh ${path} ${upstream}`
+      );
 
     });
   });
+
+  grunt.registerTask("remotePrune", function(remote) {
+    const moduleKeys = _.keys(CONFIG.modules);
+    moduleKeys && moduleKeys.forEach((key) => {
+
+      const { path } = CONFIG.modules[key];
+
+      bashTask(
+        `Remote Prune ${key} for ${remote}`,
+        `bash ./scripts/Git-remote-prune.sh ${path} ${remote}`
+      );
+
+    });
+  });
+
+  function bashTask (title, execStr) {
+    console.log(`\n[Deva] ${title}\n`.underline.green);
+    if (sh.exec(`${execStr}`).code != 0) {
+      console.log(`\n=> Error`.red);
+      return;
+    }
+
+    console.log(`\n=> Success`.green);
+  }
 };
 

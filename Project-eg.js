@@ -6,11 +6,11 @@ const CONFIG = {
   modules: {
     'plant-seed': {
       path: `${PATH}/plant-seed`,
-      remote: 'upstream'
+      upstream: 'upstream'
     },
     'life-grows': {
       path: `${PATH}/life-grows`,
-      remote: 'upstream'
+      upstream: 'upstream'
     }
   }
 };
