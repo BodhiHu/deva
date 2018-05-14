@@ -28,6 +28,20 @@ module.exports = function(grunt) {
     });
   });
 
+  grunt.registerTask("fetchBranch", function(branch) {
+    const moduleKeys = _.keys(CONFIG.modules);
+    moduleKeys && moduleKeys.forEach((key) => {
+
+      const { path, upstream } = CONFIG.modules[key];
+
+      bashTask(
+        `Pull & Rebase ${key}`,
+        `bash ./scripts/Git-fetch-branch.sh ${path} ${upstream} ${branch}`
+      );
+
+    });
+  });
+
   grunt.registerTask("remotePrune", function(remote) {
     const moduleKeys = _.keys(CONFIG.modules);
     moduleKeys && moduleKeys.forEach((key) => {
